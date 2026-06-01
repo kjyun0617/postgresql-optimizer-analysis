@@ -1,33 +1,45 @@
 # PostgreSQL Optimizer Analysis
 
-This repository contains selected PostgreSQL 18.4 source files used for SWE3003 Database Systems Assignment #4.
+This repository contains selected PostgreSQL 18.4 source directories for SWE3003 Database Systems Assignment #4.
 
-The purpose is to analyze:
-- SQL parsing entry point
-- Query planning flow
-- Join order optimization
+Uploaded directories:
+
+- `src/backend`
+- `src/include`
+
+Main analysis focus:
+
+- SQL query entry and parsing flow
+- Query analysis and rewrite
+- Query planning and optimization
+- Join order search
 - Cost estimation
-- Path selection
+- Path and plan generation
 
-Main reading path:
-1. `src/backend/tcop/postgres.c`
-   - `pg_parse_query()`
-   - entry point for converting raw SQL text into PostgreSQL raw parse trees
+Important starting points:
 
-2. `src/backend/optimizer/plan/planner.c`
-   - planner flow
+- `src/backend/tcop/postgres.c`
+  - `PostgresMain()`
+  - `exec_simple_query()`
+  - `pg_parse_query()`
 
-3. `src/backend/optimizer/path/joinrels.c`
-   - join relation construction and join order search
+- `src/backend/optimizer/plan/planner.c`
+  - `planner()`
+  - `standard_planner()`
+  - `subquery_planner()`
+  - `grouping_planner()`
 
-4. `src/backend/optimizer/path/joinpath.c`
-   - join path generation
+- `src/backend/optimizer/path/allpaths.c`
+  - relation path generation
 
-5. `src/backend/optimizer/path/costsize.c`
-   - cost estimation logic
+- `src/backend/optimizer/path/joinrels.c`
+  - join relation construction and join order search
 
-6. `src/backend/optimizer/util/pathnode.c`
-   - path node construction and path comparison support
+- `src/backend/optimizer/path/joinpath.c`
+  - join path generation
 
-7. `src/include/nodes/pathnodes.h`
-   - planner-related data structures such as RelOptInfo and Path
+- `src/backend/optimizer/path/costsize.c`
+  - cost estimation
+
+- `src/include/nodes/pathnodes.h`
+  - planner data structures such as `PlannerInfo`, `RelOptInfo`, and `Path`
